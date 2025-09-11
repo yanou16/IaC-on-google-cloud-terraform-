@@ -1,0 +1,5 @@
+project_id  = "your-project-id"
+region      = "your-region"
+zone        = "your-zone"
+ssh_user    = "your-username"
+ssh_pub_key = "path/to/your/ssh/key.pub"
