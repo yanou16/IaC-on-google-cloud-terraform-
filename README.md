@@ -3,7 +3,7 @@
 This project combines Terraform and Ansible to automatically deploy and configure a complete infrastructure on Google Cloud Platform:
 1. VM provisioning with Terraform
 2. Configuration and deployment of a Node.js application with Ansible
-
+https://roadmap.sh/projects/nodejs-service-deployment
 <img width="1563" height="422" alt="image" src="https://github.com/user-attachments/assets/7b95f2a9-2adf-4ad4-9282-7ae4b3f6c222" />
 
 ## Architecture
@@ -95,3 +95,4 @@ ssh enyare@34.12.103.216 "sudo systemctl status app"
 - SSH access configured with your public key
 - Node.js/Express application deployed and running as a systemd service
 - Web service accessible on port 80
+
