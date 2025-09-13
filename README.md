@@ -1,6 +1,7 @@
 # Infrastructure as Code with Terraform
-
+https://roadmap.sh/projects/iac-digitalocean
 This repository contains Terraform configuration to deploy a virtual machine instance on Google Cloud Platform with SSH access.
+<img width="1563" height="422" alt="image" src="https://github.com/user-attachments/assets/7b95f2a9-2adf-4ad4-9282-7ae4b3f6c222" />
 
 ## Prerequisites
 
@@ -25,4 +26,5 @@ This repository contains Terraform configuration to deploy a virtual machine ins
 ## Resources Created
 
 - Google Compute Engine VM instance with public IP
+
 - SSH access configured with your public key
