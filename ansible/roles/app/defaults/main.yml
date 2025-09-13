@@ -1,0 +1,9 @@
+---
+app_repo_url: "https://github.com/yanou16/IaC-on-google-cloud-terraform-.git"
+app_repo_version: "main"
+app_directory: "/home/{{ ansible_user }}/app"
+app_port: 80
+app_start_command: "npm start"
+# Décommentez si votre application nécessite une étape de build
+# app_build_command: "npm run build"
+app_start_file: "nodejs-app/app.js"

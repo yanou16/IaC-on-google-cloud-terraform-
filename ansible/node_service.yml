@@ -1,0 +1,12 @@
+---
+- name: Deploy Node.js Application
+  hosts: all
+  become: yes
+  vars:
+    app_repo_url: "https://github.com/yanou16/IaC-on-google-cloud-terraform-.git"
+    app_directory: "/home/{{ ansible_user }}/app"
+    app_port: 80
+    app_start_file: "app.js"  # ou le point d'entrée de votre application
+  roles:
+    - { role: nodejs, tags: ['nodejs'] }
+    - { role: app, tags: ['app'] }

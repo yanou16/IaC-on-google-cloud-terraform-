@@ -1,0 +1,14 @@
+[Unit]
+Description=Node.js Application Service
+After=network.target
+
+[Service]
+Type=simple
+User={{ ansible_user }}
+WorkingDirectory={{ app_directory }}/nodejs-app
+ExecStart=/usr/bin/node {{ app_directory }}/{{ app_start_file }}
+Environment="PORT={{ app_port }}"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

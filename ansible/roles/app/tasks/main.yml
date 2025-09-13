@@ -1,0 +1,76 @@
+---
+- name: Clone the repository
+  git:
+    repo: "{{ app_repo_url }}"
+    dest: "{{ app_directory }}"
+    version: "{{ app_repo_version }}"
+  become: yes
+  become_user: "{{ ansible_user }}"
+
+- name: Create nodejs-app directory
+  file:
+    path: "{{ app_directory }}/nodejs-app"
+    state: directory
+    mode: '0755'
+  become: yes
+  become_user: "{{ ansible_user }}"
+
+- name: Create app.js file
+  copy:
+    content: |
+      const express = require('express');
+      const app = express();
+      const port = process.env.PORT || 3000;
+
+      app.get('/', (req, res) => {
+        res.send('Hello, world!');
+      });
+
+      app.listen(port, () => {
+        console.log(`Service running on http://localhost:${port}`);
+      });
+    dest: "{{ app_directory }}/nodejs-app/app.js"
+    mode: '0644'
+  become: yes
+  become_user: "{{ ansible_user }}"
+
+- name: Create package.json file
+  copy:
+    content: |
+      {
+        "name": "node-service",
+        "version": "1.0.0",
+        "description": "Simple Node.js service",
+        "main": "app.js",
+        "scripts": {
+          "start": "node app.js"
+        },
+        "dependencies": {
+          "express": "^4.18.2"
+        }
+      }
+    dest: "{{ app_directory }}/nodejs-app/package.json"
+    mode: '0644'
+  become: yes
+  become_user: "{{ ansible_user }}"
+
+- name: Install dependencies
+  npm:
+    path: "{{ app_directory }}/nodejs-app"
+    state: present
+  become: yes
+
+- name: Create systemd service file
+  template:
+    src: app.service.j2
+    dest: /etc/systemd/system/app.service
+    mode: '0644'
+  become: yes
+
+- name: Enable and start the application service
+  systemd:
+    name: app
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  become: yes
