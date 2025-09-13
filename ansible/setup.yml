@@ -1,0 +1,12 @@
+---
+- name: Setup server with Node.js and npm
+  hosts: all
+  become: yes
+  roles:
+    - nodejs
+
+- name: Deploy Node.js Hello World service
+  hosts: all
+  become: yes
+  roles:
+    - node_service

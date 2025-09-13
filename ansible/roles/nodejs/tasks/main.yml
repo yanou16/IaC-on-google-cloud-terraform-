@@ -1,0 +1,35 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Node.js and npm (Debian/Ubuntu)
+  apt:
+    name:
+      - nodejs
+      - npm
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Node.js and npm (RedHat/CentOS)
+  yum:
+    name:
+      - nodejs
+      - npm
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Verify Node.js installation
+  command: node --version
+  register: node_version
+  changed_when: false
+
+- name: Verify npm installation
+  command: npm --version
+  register: npm_version
+  changed_when: false
+
+- name: Display Node.js and npm versions
+  debug:
+    msg: "Node.js {{ node_version.stdout }} and npm {{ npm_version.stdout }} installed"

@@ -1,0 +1,38 @@
+---
+- name: Create node-service directory
+  file:
+    path: "/home/{{ ansible_user }}/node-service"
+    state: directory
+    mode: '0755'
+
+- name: Copy app.js file
+  copy:
+    src: app.js
+    dest: "/home/{{ ansible_user }}/node-service/app.js"
+    mode: '0644'
+
+- name: Copy package.json file
+  copy:
+    src: package.json
+    dest: "/home/{{ ansible_user }}/node-service/package.json"
+    mode: '0644'
+
+- name: Install npm dependencies
+  npm:
+    path: "/home/{{ ansible_user }}/node-service"
+    state: present
+
+- name: Create systemd service file
+  template:
+    src: node-service.service.j2
+    dest: /etc/systemd/system/node-service.service
+    mode: '0644'
+  become: yes
+
+- name: Enable and start node service
+  systemd:
+    name: node-service
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: yes
